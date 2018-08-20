@@ -15,6 +15,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'active_model_serializers', '~> 0.10.2'
+gem 'devise_token_auth'
 
 group :development, :test do
   gem 'dotenv-rails'
