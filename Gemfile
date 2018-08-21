@@ -16,6 +16,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'active_model_serializers', '~> 0.10.2'
 gem 'devise_token_auth'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'dotenv-rails'
@@ -29,6 +30,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
