@@ -11,6 +11,8 @@ module WishmeBackend
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    config.i18n.default_locale = :ru
+
     config.generators do |g|
       g.template_engine nil
       g.test_framework  nil
