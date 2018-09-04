@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20180829212129) do
   create_table "wishes", force: :cascade do |t|
     t.string "title"
     t.text "text"
+    t.integer "price"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
