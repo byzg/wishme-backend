@@ -26,7 +26,7 @@ module WishmeBackend
         origins '*'
         resource '*',
                  headers: :any,
-                 methods: [:get, :post, :put, :patch, :options],
+                 methods: [:get, :post, :put, :patch, :delete, :options],
                  expose: ['access-token', 'expiry', 'token-type', 'uid', 'client']
       end
     end
