@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'active_model_serializers', '~> 0.10.2'
 gem 'devise_token_auth'
 gem 'rack-cors', require: 'rack/cors'
+gem 'rails-i18n', '~> 5.1'
 
 group :development, :test do
   gem 'dotenv-rails'
