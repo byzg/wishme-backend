@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20181024231241) do
   create_table "wishes", force: :cascade do |t|
     t.string "title"
     t.text "text"
-    t.money "price", scale: 2
+    t.decimal "price", precision: 10, scale: 2
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
