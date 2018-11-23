@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181024231241) do
+ActiveRecord::Schema.define(version: 20181123180003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "subscripions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "target_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["target_id"], name: "index_subscripions_on_target_id"
+    t.index ["user_id"], name: "index_subscripions_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -48,10 +57,10 @@ ActiveRecord::Schema.define(version: 20181024231241) do
   create_table "wishes", force: :cascade do |t|
     t.string "title"
     t.text "text"
-    t.decimal "price", precision: 10, scale: 2
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.money "price", scale: 2
     t.index ["user_id"], name: "index_wishes_on_user_id"
   end
 
