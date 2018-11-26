@@ -1,4 +1,6 @@
 class Api::WishesController < CrudController
+  actions :index, :create, :update, :destroy
+
   private
   def permitted_params
     params.require(:wish).permit(:title, :text, :price)
