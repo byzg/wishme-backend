@@ -4,9 +4,9 @@ class Api::UsersController < CrudController
   protected
   def collection_scope
     User
-      .joins('LEFT JOIN wishes ON users.id = wishes.user_id')
-      .select('users.*, count(wishes.id) as wish_count')
-      .group('users.id')
       .where.not(id: current_user.id)
+      .joins('LEFT JOIN wishes ON users.id = wishes.user_id')
+      .select('users.*, count(wishes.id) as wishes_count')
+      .group('users.id')
   end
 end
