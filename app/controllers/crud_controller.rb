@@ -7,12 +7,17 @@ class CrudController < ApplicationController
   end
 
   def create
+    model.save
     render_model
   end
 
   def update
-    model.update(permitted_params)
-    render_model
+    if model.persisted?
+      model.update(permitted_params)
+      render_model
+    else
+      head :not_found
+    end
   end
 
   def destroy
@@ -36,7 +41,7 @@ class CrudController < ApplicationController
 
   def model
     @model ||=
-      collection.find_by(id: params[:id]) || collection.create(permitted_params)
+      collection.find_by(id: params[:id]) || collection.new(permitted_params)
   end
 
   def collection
