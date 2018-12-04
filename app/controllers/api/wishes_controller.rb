@@ -6,7 +6,11 @@ class Api::WishesController < CrudController
     params.require(:wish).permit(:title, :text, :price)
   end
 
+  def q_params
+    params.permit(q: [:user_id])[:q]
+  end
+
   def collection_scope
-    model_class.where(user_id: params[:user_id])
+    model_class.where(q_params)
   end
 end
