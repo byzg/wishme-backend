@@ -11,6 +11,6 @@ class Api::WishesController < CrudController
   end
 
   def collection_scope
-    model_class.where(q_params)
+    authorized_scope.where(q_params)
   end
 end

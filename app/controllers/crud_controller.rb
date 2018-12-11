@@ -1,4 +1,9 @@
 class CrudController < ApplicationController
+  include Pundit
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   before_action :check_action_inheritance
   before_action :authenticate_user!
 
@@ -12,12 +17,8 @@ class CrudController < ApplicationController
   end
 
   def update
-    if model.persisted?
-      model.update(permitted_params)
-      render_model
-    else
-      head :not_found
-    end
+    model.update(permitted_params)
+    render_model
   end
 
   def destroy
@@ -40,8 +41,11 @@ class CrudController < ApplicationController
   end
 
   def model
-    @model ||=
-      collection.find_by(id: params[:id]) || collection.new(permitted_params)
+    return @model if @model
+    @model =
+      authorized_scope.find_by(id: params[:id]) || authorized_scope.new(permitted_params)
+    authorize @model
+    @model
   end
 
   def collection
@@ -49,11 +53,11 @@ class CrudController < ApplicationController
   end
 
   def collection_scope
-    model_class.where(user_id: current_user.id)
+    raise NotImplementedError
   end
 
-  def model_class
-    model_class_name.constantize
+  def authorized_scope
+    policy_scope(model_class_name.constantize)
   end
 
   def model_class_name
@@ -61,6 +65,10 @@ class CrudController < ApplicationController
   end
 
   private
+  def user_not_authorized
+    head :forbidden
+  end
+
   def check_action_inheritance
     head :not_found if self.class.actions.exclude?(action_name.to_sym)
   end
