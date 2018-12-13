@@ -3,7 +3,15 @@ class WishPolicy < ApplicationPolicy
     true
   end
 
+  def create?
+    !record.persisted? && record.user_id == user.id
+  end
+
   def update?
-    true
+    record.persisted? && record.user_id == user.id
+  end
+
+  def destroy?
+    record.user_id == user.id
   end
 end

@@ -23,6 +23,7 @@ class CrudController < ApplicationController
 
   def destroy
     model.destroy
+    collection.reload
     render_collection
   end
 
@@ -42,8 +43,8 @@ class CrudController < ApplicationController
 
   def model
     return @model if @model
-    @model =
-      authorized_scope.find_by(id: params[:id]) || authorized_scope.new(permitted_params)
+    @model = authorized_scope.find_by(id: params[:id])
+    @model ||= authorized_scope.new(permitted_params.merge(user_id: current_user.id))
     authorize @model
     @model
   end
